@@ -10,11 +10,6 @@ use Jellis\Check\Middleware\Checker;
 class MiddlewareTest extends TestCase
 {
 
-    public function test_it_is_true()
-    {
-        $this->assertTrue(true);
-    }
-
     public function test_it_allows_route()
     {
         $middleware = new Checker(new Check('role'));
