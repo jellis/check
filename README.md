@@ -11,6 +11,43 @@ Adding context to the access control wasn't a trivial task. Each model will have
 Using the Jeffrey Way school of thought, I started with how I wanted to define things... I really wanted my `Role` classes to be so simple it's almost stupid.
 
 ```php
+    $permissions = [
+        'post' => [
+            'index', 'create', 'store', 'view', 'edit:own', 'update:own',
+        ]
+    ];
+```
+
+After starting with those two ideas, I set to work and actually managed to implement them. What we have is, I think, a simple, fluent way of managing user access.
+
+### Route Aware Models
+
+If you have, say, a listing page for your users where they can see all posts, but can only edit their own, you'd simply have to do the following.
+
+Register the service provider config/app.php
+```php
+    'providers' => [
+        ...
+        Jellis\Check\Providers\CheckServiceProvider::class,
+        ...
+    ],
+```
+
+Register the facade in config/app.php
+```php
+    'aliases' => [
+        ...
+        'Check' => Jellis\Check\Facades\Check::class,
+        ...
+    ],
+```
+
+Name the route and assign the middleware
+```php
+Route::get('post', ['uses' => 'PostController@index', 'as' => 'post.index', 'middleware' => 'check']);
+```
+
+```php
 <?php
 
 namespace App\Roles;
@@ -23,12 +60,78 @@ class Member extends Base {
         'post' => [
             'index', 'view', 'create', 'store', 'view', 'edit:own', 'update:own',
         ],
-        'thing' => [
-            'index', 'view:own',
-        ]
     ];
 
 }
 ```
 
-After starting with those two ideas, I set to work and actually managed to implement them. What we have is, I think, a simple, fluent way of managing users.
+Configure the model to do its thing
+```php
+
+namespace App\Models;
+
+use Jellis\Check\RouteAwareModel;
+
+class Post extends RouteAwareModel
+{
+
+    protected $table = 'posts';
+
+    ...
+
+    /**
+     * This is to check against a given model
+     */
+    public function allowOwnOnly()
+    {
+        return $this->user_id == \Auth::id();
+    }
+
+    /**
+     * This is to restrict things coming out of the database
+     */
+    public function restrictOwnOnly(Builder $builder)
+    {
+        $builder->where('user_id', Auth::id());
+    }
+
+}
+```
+
+Register the middleware in `Kernel.php`
+```php
+    protected $routeMiddleware = [
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'check' => \Jellis\Check\Middleware\Checker::class,
+    ];
+```
+
+Retrieve some records in your controller
+```php
+    public function index()
+    {
+        // You could check stuff here if you need to
+        $myThing = Check::can('my.thing');
+
+        // Or you can do a contextual check, say, on a post
+        $post = Post::find(1);
+
+        if (Check::can('post.edit', $post)) {
+            // Do some thing
+        }
+
+        // In this instance, let's pass it to the view
+        $posts = Post::all();
+
+        return view('post.index', compact('posts'));
+    }
+```
+
+And in the view you can do things like
+```twig
+@foreach($posts as $post)
+    <p>{{ $post->title }}@check('post.edit', $post)<strong>You can edit</strong>@endcheck</p>
+@endforeach
+```
