@@ -1,0 +1,30 @@
+{
+    "name": "jellis/check",
+    "type": "library",
+    "description": "A very easy-to-implement user access control package designed for use with Laravel and Eloquent",
+    "homepage": "https://github.com/jellis/check",
+    "keywords": [
+        "access control",
+        "laravel",
+        "user access"
+    ],
+    "authors": [
+        {
+            "name": "Joshua Ellis",
+            "email": "jellis@jellis.com.au"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/database": "~4.2|^5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.2|~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jellis\\Check\\": "src"
+        }
+    }
+}
