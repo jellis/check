@@ -124,6 +124,8 @@ Register the middleware in `Kernel.php`
 
 Retrieve some records in your controller
 ```php
+class PostController extends Controller {
+
     public function index()
     {
         // You could check stuff here if you need to
@@ -141,6 +143,7 @@ Retrieve some records in your controller
 
         return view('post.index', compact('posts'));
     }
+}
 ```
 
 And in the view you can do things like
