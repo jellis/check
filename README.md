@@ -152,3 +152,30 @@ And in the view you can do things like
     <p>{{ $post->title }}@check('post.edit', $post)<strong>You can edit</strong>@endcheck</p>
 @endforeach
 ```
+
+### So you're a super admin??
+
+Who really wants to be putting all of those routes in for super admin? Not me.
+
+When defining your SuperAdmin role, just override the `can()` method
+```php
+class SuperAdmin extends Base
+{
+    /**
+     * Can do all the things all the time
+     *
+     * @param string $action
+     * @param Model $model
+     * @return bool
+     */
+    public function check($action, Model $model = null)
+    {
+        return true;
+    }
+}
+```
+
+## TODO
+1. Implement ability to define a permission for multiple contexts `edit:own|company`
+1. Implement multiple contexts on the scope for checking access rights
+1. Implement multiple contexts on the scope for pulling records from the model
