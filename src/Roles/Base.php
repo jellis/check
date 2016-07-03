@@ -62,9 +62,11 @@ abstract class Base
     /**
      * Check if there's a scope provided on the action
      *
-     * @param $scope
+     * @param $verb
+     * @param $action
      * @param Model $model
      * @return bool
+     * @internal param $scope
      */
     public static function scopeExists($verb, $action, Model $model)
     {

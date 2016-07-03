@@ -3,8 +3,8 @@
 namespace Jellis\Check\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Jellis\Check\Check;
+use Illuminate\Http\Request;
 
 class Checker
 {

@@ -34,7 +34,7 @@ class Check
      *
      * @var string
      */
-    protected $rolesNamespace;
+    protected $rolesNamespace = false;
 
     /**
      * Flatten out the permissions
@@ -43,7 +43,6 @@ class Check
      */
     public function __construct($role = null)
     {
-        var_dump('Loaded');
         $this->setRolesNamespace();
 
         $this->setRole($role);
@@ -115,7 +114,7 @@ class Check
      */
     private function setRolesNamespace()
     {
-        if (!$this->getRolesNamespace()) {
+        if ($this->getRolesNamespace() === false) {
             $this->rolesNamespace = $this->getAppNamespace();
         }
     }
