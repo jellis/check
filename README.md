@@ -99,6 +99,19 @@ class Post extends RouteAwareModel
 }
 ```
 
+You need to implement the `getRole()` method on the user model
+```php
+
+    class User extends Model {
+        ...
+        public function getRole()
+        {
+            return $this->role; // Or however you determine what a user's role is right now
+        }
+        ...
+    }
+```
+
 Register the middleware in `Kernel.php`
 ```php
     protected $routeMiddleware = [
