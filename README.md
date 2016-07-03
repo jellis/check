@@ -179,3 +179,4 @@ class SuperAdmin extends Base
 1. Implement ability to define a permission for multiple contexts `edit:own|company`
 1. Implement multiple contexts on the scope for checking access rights
 1. Implement multiple contexts on the scope for pulling records from the model
+1. Allow ability to wildcard a thing `post.*`, whilst still retaining scope ability `post.*:own`

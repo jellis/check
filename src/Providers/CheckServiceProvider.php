@@ -25,7 +25,6 @@ class CheckServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Check::class, function($app) {
-            dd('I am ded');
             return $app['auth']->guest() || !method_exists($app['auth']->user(), 'getRole')
                 ? new Check
                 : new Check($app['auth']->user()->getRole());
