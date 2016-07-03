@@ -3,6 +3,7 @@
     "type": "library",
     "description": "A very easy-to-implement user access control package designed for use with Laravel and Eloquent",
     "homepage": "https://github.com/jellis/check",
+    "license": "MIT",
     "keywords": [
         "access control",
         "laravel",
