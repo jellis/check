@@ -47,6 +47,7 @@ Name the route and assign the middleware
 Route::get('post', ['uses' => 'PostController@index', 'as' => 'post.index', 'middleware' => 'check']);
 ```
 
+Create a role (assuming "member" for this user)
 ```php
 <?php
 
