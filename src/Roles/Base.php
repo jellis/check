@@ -44,6 +44,17 @@ abstract class Base
             return true;
         }
 
+        // Explode the parts and check from the top
+        // TODO: Extract this to a method
+        $exploded = explode('.', $action);
+        $toCheck = '';
+        foreach ($exploded as $all) {
+            $toCheck .= $all . '.';
+            if (array_key_exists($toCheck . '*')) {
+                return true;
+            }
+        }
+
         return false;
     }
 
