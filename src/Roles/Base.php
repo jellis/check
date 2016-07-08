@@ -50,7 +50,7 @@ abstract class Base
         $toCheck = '';
         foreach ($exploded as $all) {
             $toCheck .= $all . '.';
-            if (array_key_exists($toCheck . '*')) {
+            if (array_key_exists($toCheck . '*', $this->flattened)) {
                 return true;
             }
         }
