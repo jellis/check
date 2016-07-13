@@ -2,8 +2,8 @@
 
 namespace Jellis\Check;
 
-use Jellis\Check\Check;
 use Jellis\Check\Roles\Base;
+use Jellis\Check\Facades\Check;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
