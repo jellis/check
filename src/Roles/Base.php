@@ -111,7 +111,7 @@ abstract class Base
                 $results = array_merge($results, static::flatten($value, $prepend . $key . '.'));
             } else {
                 $scopes = explode(':', $value);
-                $results[$prepend.array_first($scopes)] = count($scopes) == 2 ? last($scopes) : false;
+                $results[$prepend . $scopes[0]] = count($scopes) == 2 ? last($scopes) : false;
             }
         }
 
