@@ -7,7 +7,7 @@ use Jellis\Check\Facades\Check;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Scope as EloquentScope;
+use Illuminate\Database\Eloquent\ScopeInterface as EloquentScope;
 
 class Scope implements EloquentScope
 {
