@@ -12,14 +12,7 @@ class CheckServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // Gives us the @check($action, $model) directive in templates
-        Blade::directive('check', function($action, Model $model = null) {
-            return !!$model ? "<?php if (Check::can($action, $model)) : ?>" : "<?php if (Check::can($action)) : ?>";
-        });
-
-        Blade::directive('endcheck', function(){
-            return "<?php endif ?>";
-        });
+        
     }
 
     public function register()
