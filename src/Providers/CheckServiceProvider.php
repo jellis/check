@@ -14,7 +14,7 @@ class CheckServiceProvider extends ServiceProvider
     {
         // Gives us the @check($action, $model) directive in templates
         Blade::directive('check', function($action, Model $model = null) {
-            return "<?php if (Check::can($action, $model)) : ?>";
+            return !!$model ? "<?php if (Check::can($action, $model)) : ?>" : "<?php if (Check::can($action)) : ?>";
         });
 
         Blade::directive('endcheck', function(){
