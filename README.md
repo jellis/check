@@ -1,3 +1,6 @@
+# NOTE
+Ensure you don't use the RoutAwareModel for your Authenticatable User model - it becomes a circular operation when applying the global scopes and you'll get a bad gateway (502) error.
+
 ## What's it all about?
 
 The purpose of the project was to create a syntactically simple way to implement context-based user access control. What does that mean, exactly? Good question...
