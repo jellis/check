@@ -25,7 +25,7 @@ class Scope implements EloquentScope
         $scope = Check::getRole()->scope($model->getRoute());
 
         // Check if the model has the necessary scope
-        if ($scope && Base::getModelMethod('restrict', $scope)) {
+        if ($scope && Base::scopeExists('restrict', $scope, $model)) {
             return $model->{ Base::getModelMethod('restrict', $scope) }($builder);
         }
 
